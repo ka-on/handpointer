@@ -52,14 +52,14 @@ class HandDetector:
         init_time = time.time()
         while True:
             frame, frameRGB = self.vid_capture()
-            if self.detect_hands(frameRGB):
+            try:
                 index_x, index_y, palm_x, thumb_x = self.detect_hands(frameRGB)
-            else:
+            except TypeError:
                 index_x = index_y = palm_x = thumb_x = 50
             clicked = False
-            if self.is_clicking(palm_x, thumb_x, clicked, init_time):#if clicked:
+            if self.is_clicking(palm_x, thumb_x, clicked, init_time):
                 clicked = True
-                self.canvas = cv2.circle(self.canvas, (index_x+45, index_y-25), 3, (255, 0, 255), cv2.FILLED)
+                self.canvas = cv2.circle(self.canvas, (index_x+45, index_y-25), 3, (255, 255, 255), cv2.FILLED)
             cv2.imshow("frame", frame)
             cv2.imshow("canvas", self.canvas)
             if cv2.waitKey(1) & 0xFF == ord('q'):
