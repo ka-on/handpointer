@@ -41,7 +41,8 @@ class HandDetector:
                         index_y = int(lm.y * h)+25
             return index_x, index_y, palm_x, thumb_x
 
-    def is_clicking(self, palm_x, thumb_x, clicked, init_time):
+    @staticmethod
+    def is_clicking(palm_x, thumb_x, clicked, init_time):
         contraction = (thumb_x - palm_x) if (thumb_x - palm_x) >= 0 else (thumb_x - palm_x) * -1
         if contraction < 100 and not clicked and time.time() - init_time > 3:
             return True
